@@ -9,6 +9,7 @@
 #include "HorizontalMenu.h"
 #include "Util.h"
 #include "health.h"
+#include "Smoking.h"
 #include "SleepTime.h"
 using namespace std;
 
@@ -20,6 +21,7 @@ void signUp();
 void screen();
 void health();
 void control();
+void smoking();
 void sleep();
 
 int Health::sportTime = 0;
@@ -33,7 +35,7 @@ int main()
 	while (lRes == false) {
 		system("cls");
 		lRes = login();
-	}*/                         //실행중 매번아이디치기귀찮아서 주석처리
+	}*/                        //실행중 매번아이디치기귀찮아서 주석처리
 	system("cls");
 	screen();
 
@@ -266,7 +268,7 @@ void health()
 
 void control()
 {
-
+	smoking();
 }
 
 void alcohol()
@@ -285,6 +287,48 @@ void alcohol()
 		name[i] = new char[strlen(temp) + 1];
 		strcpy(name[i], temp);
 	}
+}
+
+void smoking()
+{	
+	int smokingYear;
+	int smokingMonth;
+	int smokingDay;
+	int stopYear;
+	int stopMonth;
+	int stopDay;
+	int smokingPerDay;
+	int sign;
+
+	system("cls");
+
+	HorizontalMenu horizontalMenu = { 0, };
+	char items[YES_NO][MENU_LEN] = { " 흡연자 ", " 비흡연자 " };
+	int count = YES_NO;
+
+	HorizontalMenu_Create(&horizontalMenu, items, count, 0, 2);
+	HorizontalMenu_Print(&horizontalMenu);
+	sign = HorizontalMenu_ProcessKey(&horizontalMenu);
+	
+	if (sign == 0) {
+		cout << endl << "첫 흡연 시기 (연 월 일): ";
+		cin >> smokingYear >> smokingMonth >> smokingDay;
+		cout << "하루에 흡연량(개비) : ";
+		cin >> smokingPerDay;
+		Smoking smoke(smokingYear, smokingMonth, smokingDay, smokingPerDay);
+		cout << "금연 시작 일 (연 월 일) : ";
+		cin >> stopYear >> stopMonth >> stopDay;
+		smoke.calSmokingMoney(stopYear, stopMonth, stopDay);
+		cout << "당신이 낭비한 금액 : " << smoke.getTotMoney() << "원" << endl;
+	}
+	else {
+		cout << endl << "당신에게 이 기능은 필요 없을 것 같습니다!" << endl;
+		system("pause");
+		system("cls");
+		return;
+	}
+	system("pause");
+	system("cls");
 }
 
 void sleep()

@@ -144,6 +144,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="SleepTime.cpp" />
+    <ClCompile Include="Smoking.cpp" />
     <ClCompile Include="Util.cpp" />
     <ClCompile Include="VerticalMenu.cpp" />
   </ItemGroup>
@@ -153,6 +154,7 @@
     <ClInclude Include="Person.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="SleepTime.h" />
+    <ClInclude Include="Smoking.h" />
     <ClInclude Include="Util.h" />
     <ClInclude Include="VerticalMenu.h" />
   </ItemGroup>
