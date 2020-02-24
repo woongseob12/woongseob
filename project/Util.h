@@ -5,8 +5,8 @@
 #include <iostream>
 
 #define FONT_COLOR_SIZE 16
-#define WINDOW_LOGIN_X 20
-#define WINDOW_LOGIN_Y 12
+#define WINDOW_LOGIN_X 30
+#define WINDOW_LOGIN_Y 16
 #define CURSOR_SIZE 30
 #define BLACK 0
 #define RED 4
@@ -20,4 +20,4 @@ void gotoXY(int , int);
 void CursorUtil_Show();
 void CursorUtil_Hide();
 void textColor(int);
-void ScreenUtil_ClearRectangle(int leftTopX, int leftTopY, int width, int height);
+

@@ -1,4 +1,3 @@
-//콘솔창 높이 80 너비 25
 #pragma warning (disable : 4996)
 #include <fstream>
 #include <iostream>
@@ -16,11 +15,11 @@ using namespace std;
 #define ID_LIST_FILE "c:\\data\\idlist.txt"
 #define YES_NO 2
 
+void logo();
 bool login();
 void signUp();
 void screen();
 void health();
-void control();
 void smoking();
 void sleep();
 
@@ -31,15 +30,51 @@ time_t Health::endHour = time(NULL);
 
 int main()
 {
-	/*bool lRes = false;
+	bool lRes = false;
 	while (lRes == false) {
 		system("cls");
 		lRes = login();
-	}*/                        //실행중 매번아이디치기귀찮아서 주석처리
+	}                       
 	system("cls");
 	screen();
 
 	return 0;
+}
+
+void logo() 
+{
+	system("mode con: cols=80 lines=25");
+
+	string specialWord0 = "■      ■  ■■■■■   ■■■■   ■      ■■■■■  ■      ■";
+	string specialWord1 = "■      ■  ■          ■      ■  ■          ■      ■      ■";
+	string specialWord2 = "■■■■■  ■■■■    ■■■■■  ■          ■      ■■■■■";
+	string specialWord3 = "■      ■  ■          ■      ■  ■          ■      ■      ■";
+	string specialWord4 = "■      ■  ■■■■■  ■      ■  ■■■■    ■      ■      ■";
+	gotoXY(7, 3); 
+	cout << specialWord0;
+	gotoXY(7, 4); 
+	cout << specialWord1;
+	gotoXY(7, 5); 
+	cout << specialWord2;
+	gotoXY(7, 6); 
+	cout << specialWord3;
+	gotoXY(7, 7);
+	cout << specialWord4 << endl;
+	string specialWord5 = " ■■■■   ■■■■   ■■■■   ■■■■■ ";
+	string specialWord6 = "■         ■      ■  ■     ■  ■        ";
+	string specialWord7 = "■         ■■■■■  ■■■■   ■■■■  ";
+	string specialWord8 = "■         ■      ■  ■     ■  ■        ";
+	string specialWord9 = " ■■■■  ■      ■  ■     ■  ■■■■■ ";
+	gotoXY(18, 9);
+	cout << specialWord5;
+	gotoXY(18, 10);
+	cout << specialWord6;
+	gotoXY(18, 11);
+	cout << specialWord7;
+	gotoXY(18, 12);
+	cout << specialWord8;
+	gotoXY(18, 13);
+	cout << specialWord9 << endl;
 }
 
 bool login()
@@ -57,6 +92,9 @@ bool login()
 		system("pause");
 		return false;
 	}
+
+	textColor(WHITE);
+	logo();
 
 	gotoXY(WINDOW_LOGIN_X, WINDOW_LOGIN_Y - 1);
 	cout << "<로그인>";
@@ -91,13 +129,15 @@ bool login()
 	fin.seekg(0);
 	fin.close();
 	gotoXY(WINDOW_LOGIN_X, WINDOW_LOGIN_Y + 1);
-	cout << "해당하는 ID가 없습니다. 신규로 등록 하시겠습니까?";
+	cout << "해당하는 ID가 없습니다" << endl;
+	gotoXY(WINDOW_LOGIN_X, WINDOW_LOGIN_Y + 2);
+	cout << "신규로 등록 하시겠습니까?";
 	
 	HorizontalMenu horizontalMenu = { 0, };
-	char items[YES_NO][MENU_LEN] = { "회원가입", "메인메뉴" };
+	char items[YES_NO][MENU_LEN] = { "회원가입", "로그인메뉴" };
 	int count = YES_NO;
 	
-	HorizontalMenu_Create(&horizontalMenu, items, count, WINDOW_LOGIN_X, WINDOW_LOGIN_Y + 2);
+	HorizontalMenu_Create(&horizontalMenu, items, count, WINDOW_LOGIN_X, WINDOW_LOGIN_Y + 3);
 	HorizontalMenu_Print(&horizontalMenu);
 	sign = HorizontalMenu_ProcessKey(&horizontalMenu);
 	
@@ -115,6 +155,7 @@ void signUp()
 	char userPass[20];
 	char serverPass[20];
 
+
 	fin.open(ID_LIST_FILE);
 	if (fin.fail()) {
 		cout << ID_LIST_FILE << "회원 가입 file open error!!" << endl;
@@ -122,6 +163,8 @@ void signUp()
 		return;
 	}
 	system("cls");
+	textColor(WHITE);
+	logo();
 	gotoXY(WINDOW_LOGIN_X, WINDOW_LOGIN_Y - 1);
 	cout << "<회원 가입>";
 	gotoXY(WINDOW_LOGIN_X, WINDOW_LOGIN_Y);
@@ -139,6 +182,8 @@ void signUp()
 			gotoXY(WINDOW_LOGIN_X, WINDOW_LOGIN_Y + 2);
 			system("pause");
 			system("cls");
+			textColor(WHITE);
+			logo();
 			gotoXY(WINDOW_LOGIN_X, WINDOW_LOGIN_Y - 1);
 			cout << "<회원 가입>";
 			gotoXY(WINDOW_LOGIN_X, WINDOW_LOGIN_Y);
@@ -163,11 +208,12 @@ void signUp()
 void screen()
 {
 	VerticalMenu verticalMenu = { 0, };
-	char items[MENU_COUNT][MENU_LEN] = { "[1] 헬스 모드", "[2] 절제 모드", "[3] 수면 모드", "[4] 종료"};
+	char items[MENU_COUNT][MENU_LEN] = { "[1] 헬스 모드", "[2] 금연 모드", "[3] 수면 모드", "[4] 종료"};
 	int count = MENU_COUNT;
 	int selMenu;
 	
 	while (1) {
+		logo();
 		VerticalMenu_Create(&verticalMenu, items, count, WINDOW_LOGIN_X, WINDOW_LOGIN_Y);
 		VerticalMenu_Print(&verticalMenu);
 		selMenu = VerticalMenu_ProcessKey(&verticalMenu);
@@ -177,7 +223,7 @@ void screen()
 		switch (selMenu)
 		{
 		case 0:health(); break;
-		case 1:control(); break;
+		case 1:smoking(); break;
 		case 2:sleep(); break;
 		default:
 			break;
@@ -266,28 +312,6 @@ void health()
 	}
 }
 
-void control()
-{
-	smoking();
-}
-
-void alcohol()
-{
-	int num;
-	char **name;
-	char temp[20];
-
-	cout << "몇명이서 마셨습니까? ";
-	cin >> num;
-	name = new char*[num];
-	cout << "같이 마신 사람의 이름을 입력하세요" << endl;
-	for (int i = 0; i < num; i++) {
-		cout << i + 1 << ". ";
-		cin >> temp;
-		name[i] = new char[strlen(temp) + 1];
-		strcpy(name[i], temp);
-	}
-}
 
 void smoking()
 {	

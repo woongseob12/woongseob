@@ -22,13 +22,3 @@ void CursorUtil_Hide() {
 void textColor(int color) {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), color);
 }
-
-void ScreenUtil_ClearRectangle(int leftTopX, int leftTopY, int width, int height) {
-	gotoXY(leftTopX, leftTopY++);
-	for (int i = 0; i < height; i++) {
-		for (int j = 0; j < width; j++) {
-			cout << " ";
-		}
-		gotoXY(leftTopX, leftTopY++);
-	}
-}
